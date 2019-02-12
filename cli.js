@@ -8,8 +8,8 @@ run = () => {
 	let menu = require('yargs');
 	for (const command of commands) {
 		menu.command(command.command, command.description, command.argumentsProcessor, command.commandProcessor);
-    }
-    
+	}
+
 	menu.command({
 		command: '*',
 		handler(args) {

@@ -3,6 +3,7 @@ const colors = require('./../colors/colors');
 const info = colors.info;
 const warning = colors.warning;
 const error = colors.error;
+const success = colors.success;
 
 class Logger {
 
@@ -23,7 +24,11 @@ class Logger {
 
 	logError(arg) {
 		console.log(error(arg));
-    }
+	}
+	
+	logSuccess(arg) {
+		console.log(success(arg));
+	}
 }
 
 const logger = new Logger();

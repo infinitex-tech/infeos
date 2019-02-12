@@ -1,1 +1,0 @@
-The 'core' folder contains the core functionality used through the cli
