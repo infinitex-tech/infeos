@@ -1,4 +1,5 @@
 const fs = require('fs');
+const path = require('path');
 const EOL = require('os').EOL;
 const shell = require('shelljs');
 const logger = require('../../utils/logger/logger').logger;
@@ -40,10 +41,16 @@ module.exports = EOSIODeployer;
  * @param {boolean} shouldGenerateAbi Flag for ABI generation
  */
 let compileContract = (contractName, shouldGenerateAbi, abi, wasm) => {
-    let contractFilePath = `./src/${contractName}.cpp`;
-    let generateWasmScript = __dirname + '/./../scripts/contract/compile_contract.sh'; // use path.join()
+    let pathToWasmFile = path.normalize(`src/${contractName}.wasm`);
+    let pathToMasterContractFile = path.normalize(`src/${contractName}.cpp`);
+    let dockerContainerName = 'dev_EOS_node';
 
-    shell.exec(`sh ${generateWasmScript} ${wasm.getWasmPath()} ${contractFilePath} ${contractName}.cpp ${shouldGenerateAbi}`);
+    let contractsFolderPathInContainer = path.normalize('/opt/eosio/bin/contracts');
+    let pathToAbiFileInContainer = path.join(contractsFolderPathInContainer, `/src/${contractName}.abi`);
+
+    let generateWasmScript = path.join(__dirname, '/./../scripts/contract/compile_contract.sh'); // use path.join()
+
+    shell.exec(`sh ${generateWasmScript} ${pathToWasmFile} ${pathToMasterContractFile} ${contractName} ${shouldGenerateAbi} ${dockerContainerName} ${contractsFolderPathInContainer} ${wasm.getWasmPath()} ${abi.getAbiPath()} ${pathToAbiFileInContainer}`);
 
     logger.logSuccess('=== Successful compilation | Check your build folder ===');
 

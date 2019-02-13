@@ -19,7 +19,6 @@ class EOSIOContract {
 module.exports = EOSIOContract;
 
 let actionBuilder = (EOSIOAccount, abi, that) => {
-    console.log('EOSIOAccount = ', EOSIOAccount);
     let actions = abi.getAbiAsObject().actions;
     let structs = Object.assign({}, ...abi.getAbiAsObject().structs.map(struct => ({ [struct['name']]: struct })));
     

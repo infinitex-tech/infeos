@@ -10,14 +10,18 @@ const shell = require('shelljs');
 const runLocal = () => {
 	copyConfigIniFile();
 
-	const startScriptPath = path.join(__dirname, '/../../core/scripts/start.sh');
-
 	let dockerContainerName = 'dev_EOS_node';
 	let dockerImageName = 'infinitexlabs/eos-dev-infeos:v1.6.0';
 	let nodeosPort = 8888;
 	let nodeosEnvironment = 'main';
 
-	shell.exec(`sh ${startScriptPath} ${dockerContainerName} ${dockerImageName} ${nodeosPort} ${nodeosEnvironment} &`);
+	if (process.platform !== 'darwin') {
+		let startScriptPath = path.join(__dirname, '/../../core/scripts/start_windows.sh');
+		shell.exec(`sh ${startScriptPath} ${dockerContainerName} ${dockerImageName} ${nodeosPort} ${nodeosEnvironment} &`);
+	} else {
+		let startScriptPath = path.join(__dirname, '/../../core/scripts/start.sh');
+		shell.exec(`sh ${startScriptPath} ${dockerContainerName} ${dockerImageName} ${nodeosPort} ${nodeosEnvironment} &`);
+	}
 };
 
 const runTestnet = () => {
