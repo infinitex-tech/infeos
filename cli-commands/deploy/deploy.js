@@ -1,8 +1,9 @@
 const fs = require('fs');
+const path = require('path');
 const logger = require('./../../utils/logger/logger').logger;
 
-const buildDirectory = './build';
-const deployerFilePath = 'deployment/deploy.js';
+const buildDirectory = path.normalize('./build');
+const deployerFilePath = path.normalize('deployment/deploy.js');
 
 const createBuildFolder = () => {
 	if (!fs.existsSync(buildDirectory)) {

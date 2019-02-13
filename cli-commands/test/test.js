@@ -19,7 +19,7 @@ const runTestNode = () => {
 };
 
 const copyTestConfigIniFile = () => {
-	let testConfigIniFile = `${process.cwd()}/${testConfigIniFilePath}`;
+	let testConfigIniFile = path.join(process.cwd(), testConfigIniFilePath);
 	let configFolderPath = path.join(__dirname, '/../../core/scripts/config');
 	let testConfigFolderPath = path.join(configFolderPath, '/test');
 

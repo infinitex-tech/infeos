@@ -2,7 +2,7 @@ using namespace types;
 
 void universe::createstar(string star_name, string star_type, string color, uint64_t average_mass, uint64_t average_radius)
 {
-    require_auth(name("universe"));
+    require_auth(name("infeos"));
 
     stars.emplace(get_self(), [&](auto &row) {
         row.id = stars.available_primary_key();
@@ -16,7 +16,7 @@ void universe::createstar(string star_name, string star_type, string color, uint
 
 void universe::addplanet(uint64_t star_id, uint64_t planet_id)
 {
-    require_auth(name("universe"));
+    require_auth(name("infeos"));
 
     auto starIterator = stars.find(star_id);
     eosio_assert(starIterator != stars.end(), "Star not found!");

@@ -1,4 +1,5 @@
 const fs = require('fs');
+const path = require('path');
 const { EOSApi, Serialize } = require('./../eosio_utils/EOSJS_Instance').getInstance();
 
 class Abi {
@@ -8,7 +9,7 @@ class Abi {
 	}
 
 	getAbiPath() {
-        return `${process.cwd()}/build/${this.contractName}.abi`;
+        return path.normalize(`${process.cwd()}/build/${this.contractName}.abi`);
     }
 
     getSerializedAbi() {

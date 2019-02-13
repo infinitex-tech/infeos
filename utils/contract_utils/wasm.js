@@ -1,4 +1,5 @@
 const fs = require('fs');
+const path = require('path');
 
 class Wasm {
 
@@ -7,7 +8,7 @@ class Wasm {
 	}
 
 	getWasmPath() {
-        return `${process.cwd()}/build/${this.contractName}.wasm`;
+        return path.normalize(`${process.cwd()}/build/${this.contractName}.wasm`);
     }
 
     getWasmAsHex() {

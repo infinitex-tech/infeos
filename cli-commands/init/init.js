@@ -2,14 +2,14 @@ const fs = require('fs');
 const path = require('path');
 const logger = require('./../../utils/logger/logger').logger;
 
-const contractsDirectory = './contracts';
-const includeDirectory = './contracts/include';
-const includeSubfolderDirectory = `${includeDirectory}/universe`;
-const ricardianContractsDirectory = './contracts/rc';
-const sourceDirectory = './contracts/src';
-const deploymentDirectory = './deployment';
-const testsDirectory = './test';
-const configDirectory = './config'
+const contractsDirectory = path.normalize('./contracts');
+const includeDirectory = path.normalize('./contracts/include');
+const includeSubfolderDirectory = path.normalize(`${includeDirectory}/universe`);
+const ricardianContractsDirectory = path.normalize('./contracts/rc');
+const sourceDirectory = path.normalize('./contracts/src');
+const deploymentDirectory = path.normalize('./deployment');
+const testsDirectory = path.normalize('./test');
+const configDirectory = path.normalize('./config');
 
 /**
  * Includes (Headers)

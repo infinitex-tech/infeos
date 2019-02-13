@@ -1,4 +1,5 @@
 const fs = require('fs');
+const EOL = require('os').EOL;
 const shell = require('shelljs');
 const logger = require('../../utils/logger/logger').logger;
 
@@ -108,7 +109,7 @@ let checkForEmptyAbi = (abi) => {
     });
 
     if (isEmptyAbi) {
-        logger.logWarning('\nWarning: Unfortunately, the contract structure is too complicated at this moment for --abigen to generate correct ABI file');
-        logger.logWarning('Warning: That\'s normal for complex projects. ABI should be created manually. Please refer to https://developers.eos.io/eosio-home/docs/the-abi\n');
+        logger.logWarning(`${EOL}Warning: Unfortunately, the contract structure is too complicated at this moment for --abigen to generate correct ABI file`);
+        logger.logWarning(`Warning: That\'s normal for complex projects. ABI should be created manually. Please refer to https://developers.eos.io/eosio-home/docs/the-abi${EOL}`);
     }
 }

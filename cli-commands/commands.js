@@ -1,3 +1,4 @@
+const path = require('path');
 const node = require('./node/node');
 const init = require('./init/init');
 const deploy = require('./deploy/deploy');
@@ -10,9 +11,9 @@ const commands = [
         description: 'Run a local EOS node by default',
         argumentsProcessor: (yargs) => { 
             yargs.positional('network', {
-				describe: 'Specifies the path in which tests should be ran',
+				describe: 'Specifies the network which will be used for the node',
 				type: 'string',
-				default: './test'
+				default: 'EOS'
 			});
         },
         commandProcessor: async () => {
@@ -54,7 +55,7 @@ const commands = [
             yargs.positional('path', {
 				describe: 'Specifies the path in which tests should be ran',
 				type: 'string',
-				default: './test'
+				default: path.normalize('./test')
 			});
         },
         commandProcessor: async (argv) => {

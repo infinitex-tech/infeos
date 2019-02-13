@@ -2,8 +2,8 @@ const fs = require('fs');
 const path = require('path');
 const logger = require('./../../utils/logger/logger').logger;
 
-const defaultSetupNodeFilePath = '/config/node_config.js';
-const configIniFilePath = 'config/config.ini';
+const defaultSetupNodeFilePath = path.normalize('/config/node_config.js');
+const configIniFilePath = path.normalize('config/config.ini');
 
 const shell = require('shelljs');
 
@@ -41,7 +41,7 @@ const runNode = () => {
 }
 
 const copyConfigIniFile = () => {
-	let configIniFile = `${process.cwd()}/${configIniFilePath}`;
+	let configIniFile = path.join(process.cwd(), configIniFilePath);
 	let configFolderPath = path.join(__dirname, '/../../core/scripts/config');
 	let mainConfigFolderPath = path.join(configFolderPath, '/main');
 
