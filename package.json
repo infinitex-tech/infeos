@@ -1,13 +1,14 @@
 {
   "name": "infeos",
-  "version": "0.0.1",
-  "description": "infeos is an EOSIO development and deployment framework",
+  "version": "0.1.0",
+  "description": "infeos is an EOSIO development, building, testing, and deployment framework based and using javascript, npm, eosjs and the EOSIO protocol",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\""
   },
   "author": "https://infinitexlabs.com",
   "license": "ISC",
+  "keywords": ["eosio", "eos", "telos", "worbli", "bos", "blockchain", "infeos", "infinite x labs", "eos bulgaria"],
   "devDependencies": {
     "should": "^13.2.3"
   },
