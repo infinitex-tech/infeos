@@ -12,22 +12,30 @@ NODEOS_PORT=$3;
 
 NODEOS_ENVIRONMENT=$4
 
+# OS
+IS_DARWIN=$5
+
 # Colors
 RED='\033[0;31m'
 GREEN='\033[0;32m'
 CYAN='\033[0;36m'
 NO_COLOR='\033[0m'
 
+if [ "$IS_DARWIN" = true ] && [ ${NODEOS_ENVIRONMENT} != "test" ]; then
+  echo "\n${CYAN}Starting a local EOS node${NO_COLOR}"
+  echo "${GREEN}=== DOCKER: CONTAINER ID ===${NO_COLOR}"
+fi
 
-# change to script's directory
-# cd "$(dirname "$0")/eosio_docker"
+if [ "$IS_DARWIN" = false ] && [ ${NODEOS_ENVIRONMENT} != "test" ]; then
+  echo ""
+  echo "Starting a local EOS node"
+  echo "=== DOCKER: CONTAINER ID ==="
+fi
 
 if [ ${NODEOS_ENVIRONMENT} != "test" ]
 then
     script="sh ./node/init_node.sh"
 
-    echo "\n${CYAN}Starting a local EOS node${NO_COLOR}"
-    echo "${GREEN}=== DOCKER: CONTAINER ID ===${NO_COLOR}"
     docker run --name ${CONTAINER_NAME} -d \
     -p ${NODEOS_PORT}:${NODEOS_PORT} -p 4949:4949 \
     --mount type=bind,src="$(pwd)"/node,dst=/opt/eosio/bin/node \

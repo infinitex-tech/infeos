@@ -17,15 +17,27 @@ module.exports = class EOS extends EOSIO_Node {
     createWallet(walletName) {
         super.createWallet(walletName);
 
+        let isDarwin = true;
+
+        if (process.platform !== 'darwin') {
+            isDarwin = false;
+        }
+
         let createWalletScript = path.join(__dirname, '/./../../scripts/wallet/create_wallet.sh');
-        shell.exec(`sh ${createWalletScript} ${containerName} ${nodeosEndpoint} ${keosdEndpoint} ${walletName}`);
+        shell.exec(`sh ${createWalletScript} ${containerName} ${nodeosEndpoint} ${keosdEndpoint} ${walletName} ${isDarwin}`);
     }
 
     importKey(walletName, key, silent = 'no') {
         super.importKey(walletName, key);
 
+        let isDarwin = true;
+
+        if (process.platform !== 'darwin') {
+            isDarwin = false;
+        }
+
         let importKeyScript = path.join(__dirname, '/./../../scripts/wallet/import_key.sh');
-        shell.exec(`sh ${importKeyScript} ${containerName} ${nodeosEndpoint} ${keosdEndpoint} ${key} ${walletName} ${silent}`);
+        shell.exec(`sh ${importKeyScript} ${containerName} ${nodeosEndpoint} ${keosdEndpoint} ${key} ${walletName} ${silent} ${isDarwin}`);
     }
 
     /**
@@ -37,7 +49,13 @@ module.exports = class EOS extends EOSIO_Node {
     createAccount(accountName, ownerPublicKey, activePublicKey, silent = 'no') {
         super.createAccount(accountName, ownerPublicKey, activePublicKey);
 
+        let isDarwin = true;
+
+        if (process.platform !== 'darwin') {
+            isDarwin = false;
+        }
+
         let createAccountScript = path.join(__dirname, '/./../../scripts/account/create_account.sh');
-        shell.exec(`sh ${createAccountScript} ${containerName} ${nodeosEndpoint} ${keosdEndpoint} ${accountName} ${ownerPublicKey} ${activePublicKey} ${silent}`);
+        shell.exec(`sh ${createAccountScript} ${containerName} ${nodeosEndpoint} ${keosdEndpoint} ${accountName} ${ownerPublicKey} ${activePublicKey} ${silent} ${isDarwin}`);
     }
 }

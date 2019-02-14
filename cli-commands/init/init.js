@@ -248,7 +248,7 @@ const run = async () => {
 		copyTemplateFiles(templateFilesDirectory);
 		createGitIgnoreFile(resourceFilesDirectory);
 		copyPackageJsonFile(resourceFilesDirectory);
-		// const { stdout, stderr } = await exec('npm install etherlime');
+		const { stdout, stderr } = await exec('npm install infeos');
 
 		logger.logSuccess('=== WooHoo, you\'re ready! Now the EOSIO universe is in your hands! ===\n');
 

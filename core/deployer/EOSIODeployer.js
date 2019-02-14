@@ -10,6 +10,8 @@ const Wasm = require('./../../utils/contract_utils/wasm');
 const EOSIOAction = require('./../eosio_wrappers/action/EOSIOAction');
 const EOSIOContract = require('./../eosio_wrappers/contract/EOSIOContract');
 
+const infeos_config = require('./../config/infeos_config.json');
+
 class EOSIODeployer {
 
 	constructor(contractName, EOSIOAccount, shouldGenerateAbi = false) {
@@ -55,7 +57,7 @@ module.exports = EOSIODeployer;
 let compileContract = (contractName, shouldGenerateAbi, abi, wasm) => {
     let pathToWasmFile = path.normalize(`src/${contractName}.wasm`);
     let pathToMasterContractFile = path.normalize(`src/${contractName}.cpp`);
-    let dockerContainerName = 'dev_EOS_node';
+    let dockerContainerName = infeos_config.docker.EOS.containerName;
 
     let contractsFolderPathInContainer;
 

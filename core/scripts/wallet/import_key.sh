@@ -18,19 +18,32 @@ WALLET_NAME=$5
 # Flag to execute the command silent
 IS_SILENT=$6
 
+# OS
+IS_DARWIN=$7
+
 # Colors
 RED='\033[0;31m'
 GREEN='\033[0;32m'
 CYAN='\033[0;36m'
 NO_COLOR='\033[0m'
 
+if [ "$IS_DARWIN" = true ] && [ $IS_SILENT != "yes" ] ; then
+  echo "\n${CYAN}Importing eosio private key (only for development environment) to wallet: ${RED}${WALLET_NAME}${NO_COLOR}"
+  echo "${GREEN}=== EOSIO OUTPUT ===${NO_COLOR}"
+fi
+
+if [ "$IS_DARWIN" = false ] && [ $IS_SILENT != "yes" ] ; then
+  echo ""
+  echo "Importing eosio private key (only for development environment) to wallet: ${WALLET_NAME}"
+  echo "=== EOSIO OUTPUT ==="
+fi
+
+
 if [ $IS_SILENT != "yes" ]
 then
 
 # Importing private key to wallet
 sleep 1s 
-echo "\n${CYAN}Importing eosio private key (only for development environment) to wallet: ${RED}${WALLET_NAME}${NO_COLOR}"
-echo "${GREEN}=== EOSIO OUTPUT ===${NO_COLOR}"
 docker exec $CONTAINER_NAME cleos --url $NODEOS_ENDPOINT --wallet-url $KEOSD_ENDPOINT wallet import --private-key $PRIVATE_KEY -n $WALLET_NAME
 
 else

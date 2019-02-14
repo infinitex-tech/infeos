@@ -21,7 +21,7 @@ const runLocal = () => {
 		shell.exec(`sh ${startScriptPath} ${dockerContainerName} ${dockerImageName} ${nodeosPort} ${nodeosEnvironment} &`);
 	} else {
 		let startScriptPath = path.join(__dirname, '/../../core/scripts/start.sh');
-		shell.exec(`sh ${startScriptPath} ${dockerContainerName} ${dockerImageName} ${nodeosPort} ${nodeosEnvironment} &`);
+		shell.exec(`sh ${startScriptPath} ${dockerContainerName} ${dockerImageName} ${nodeosPort} ${nodeosEnvironment} ${true} &`);
 	}
 };
 
