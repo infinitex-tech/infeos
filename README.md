@@ -1,2 +1,1 @@
-![infeos logo](infeos_logo.png)
-
+<p align="center"><a href="https://t.me/infeos"><img src="infeos_logo.png" /></a></p>
