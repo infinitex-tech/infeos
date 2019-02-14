@@ -20,6 +20,3 @@ fi
 # Removing the previous EOSIO container if it exists
 docker stop ${CONTAINER_NAME} 2>/dev/null || true && docker rm --force ${CONTAINER_NAME} 2>/dev/null || true 
 
-# Creating a clean data folder in the eosio_docker to preserve block data
-# rm -rf "./docker/eosio_docker/data" 2>/dev/null
-# mkdir -p "./docker/eosio_docker/data" 2>/dev/null

@@ -5,8 +5,8 @@ const EOSIO_Node = require('./EOSIO_Node');
 const infeos_config = require('./../../config/infeos_config.json');
 
 const containerName = infeos_config.docker.EOS.containerName;
-const nodeosEndpoint = `http://127.0.0.1:8888`;
-const keosdEndpoint = `http://127.0.0.1:4949`;
+const nodeosEndpoint = `http://127.0.0.1:${infeos_config.network.nodeosPort}`;
+const keosdEndpoint = `http://127.0.0.1:${infeos_config.network.keosdPort}`;
 
 module.exports = class EOS extends EOSIO_Node {
 

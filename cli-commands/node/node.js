@@ -1,18 +1,19 @@
 const fs = require('fs');
 const path = require('path');
-const logger = require('./../../utils/logger/logger').logger;
 
 const defaultSetupNodeFilePath = path.normalize('/config/node_config.js');
 const configIniFilePath = path.normalize('config/config.ini');
+
+const infeos_config = require('./../../core/config/infeos_config.json');
 
 const shell = require('shelljs');
 
 const runLocal = () => {
 	copyConfigIniFile();
 
-	let dockerContainerName = 'dev_EOS_node';
-	let dockerImageName = 'infinitexlabs/eos-dev-infeos:v1.6.0';
-	let nodeosPort = 8888;
+	let dockerContainerName = infeos_config.docker.EOS.containerName;
+	let dockerImageName = infeos_config.docker.EOS.containerImageName;
+	let nodeosPort = infeos_config.network.nodeosPort;
 	let nodeosEnvironment = 'main';
 
 	if (process.platform !== 'darwin') {

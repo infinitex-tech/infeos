@@ -1,5 +1,3 @@
-const logger = require('./../../utils/logger/logger').logger;
-
 class Validator {
 
     constructor() {

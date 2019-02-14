@@ -11,7 +11,7 @@ const runTestNode = () => {
 	const startScriptPath = path.join(__dirname, '/../../core/scripts/start.sh');
 
 	let dockerContainerName = 'test_EOS_node';
-	let dockerImageName = 'infinitexlabs/eos-dev-infeos:v1.6.0';
+	let dockerImageName = 'infinitexlabs/eos-dev-infeos:latest';
 	let nodeosPort = 7777;
 	let nodeosEnvironment = 'test';
 

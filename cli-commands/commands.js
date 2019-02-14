@@ -1,21 +1,16 @@
 const path = require('path');
 const node = require('./node/node');
 const init = require('./init/init');
+const compile = require('./compile/compile');
 const deploy = require('./deploy/deploy');
 const test = require('./test/test');
 const logger = require('./../utils/logger/logger').logger;
 
 const commands = [
     {
-        command: 'run-node [network]',
+        command: 'run-node',
         description: 'Run a local EOS node by default',
-        argumentsProcessor: (yargs) => { 
-            yargs.positional('network', {
-				describe: 'Specifies the network which will be used for the node',
-				type: 'string',
-				default: 'EOS'
-			});
-        },
+        argumentsProcessor: () => {},
         commandProcessor: async () => {
             try {
                 await node.run();
@@ -26,7 +21,7 @@ const commands = [
     },
     {
         command: 'init',
-        description: 'initialize dApp folder structure and files ready for using',
+        description: 'Initialize dApp folder structure and files ready for using',
         argumentsProcessor: () => { },
         commandProcessor: async () => {
             try {
@@ -38,11 +33,29 @@ const commands = [
     },
     {
         command: 'deploy',
-        description: 'run deployment',
+        description: 'Run the deployment script',
         argumentsProcessor: () => { },
         commandProcessor: async () => {
             try {
                 await deploy.run();
+            } catch (error) {
+                logger.logError(error);
+            }
+        }
+    },
+    {
+        command: 'compile [abi]',
+        description: 'Compiles the smart contracts and generates WASM & ABI',
+        argumentsProcessor: (yargs) => { 
+            yargs.positional('abi', {
+				describe: 'Flag specifying the generation of an ABI file',
+				type: 'boolean',
+				default: false
+			});
+        },
+        commandProcessor: async (argv) => {
+            try {
+                await compile.run(argv.abi);
             } catch (error) {
                 logger.logError(error);
             }

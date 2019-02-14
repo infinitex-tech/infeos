@@ -37,14 +37,16 @@ docker stop ${CONTAINER_NAME} 2>/dev/null || true && docker rm --force ${CONTAIN
     echo "\n${CYAN}Starting a local EOS node${NO_COLOR}"
     echo "${GREEN}=== DOCKER: CONTAINER ID ===${NO_COLOR}"
     docker run --name ${CONTAINER_NAME} -d \
-    -p ${NODEOS_PORT}:${NODEOS_PORT} -p ${KEOSD_PORT}:${KEOSD_PORT} \
-    ${IMAGE_NAME} //bin/bash -c "keosd --http-server-address=0.0.0.0:${KEOSD_PORT} & nodeos -e -p eosio -d /mnt/dev/data \
+    -p 8888:8888 -p 4949:4949 \
+    --mount type=bind,src="$(pwd)"/node,dst=/opt/eosio/bin/node \
+    --mount type=bind,src="$(pwd)"/config,dst=/opt/eosio/bin/config \
+    --workdir //opt/eosio/bin/ ${IMAGE_NAME} //bin/bash -c "keosd --http-server-address=0.0.0.0:4949 & nodeos -e -p eosio -d /mnt/dev/data \
   --config-dir /mnt/dev/config \
   --http-validate-host=false \
   --plugin eosio::producer_plugin \
   --plugin eosio::chain_api_plugin \
   --plugin eosio::http_plugin \
-  --http-server-address=0.0.0.0:${NODEOS_PORT} \
+  --http-server-address=0.0.0.0:8888 \
   --access-control-allow-origin=* \
   --contracts-console \
   --verbose-http-errors"

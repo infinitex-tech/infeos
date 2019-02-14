@@ -11,7 +11,7 @@ const deploy = async () => {
      */
     let accountDeployer = new infeos.EOSIOAccount(config.account.name, config.account.permissions.system, config.account.permissions.system);
 
-    let universeContract = new infeos.EOSIODeployer(config.masterContract, accountDeployer);
+    let universeContract = new infeos.EOSIODeployer(config.masterContract, accountDeployer, true);
     let universeContractInstance = await universeContract.deploy();
 };
 

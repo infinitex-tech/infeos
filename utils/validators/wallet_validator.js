@@ -1,4 +1,3 @@
-const logger = require('./../../utils/logger/logger').logger;
 const Validator = require('./validator');
 
 class WalletValidator extends Validator {

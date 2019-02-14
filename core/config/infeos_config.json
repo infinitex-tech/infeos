@@ -19,7 +19,7 @@
         "EOS": {
             "containerName": "dev_EOS_node",
             "testContainerName": "test_EOS_node",
-            "containerImageName": "infinitexlabs/eos-dev-infeos:v1.6.0"
+            "containerImageName": "infinitexlabs/eos-dev-infeos:latest"
         },
         "nodeosEnvironment": {
             "main": "main",

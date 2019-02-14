@@ -1,5 +1,3 @@
-const { EOSRpc } = require('./../../../utils/eosio_utils/EOSJS_Instance').getInstance();
-
 const Abi = require('./../../../utils/contract_utils/abi');
 const EOSIOAction = require('./../action/EOSIOAction');
 
@@ -31,7 +29,7 @@ let actionBuilder = (EOSIOAccount, abi, that) => {
             
             let optionals = params[actionParamsCount] instanceof Object ? params[actionParamsCount] : null;
 
-            let account = (optionals && optionals.account instanceof EOSIOAccount) ? optionals.account.name : EOSIOAccount.name;
+            let account = (optionals && optionals.account) ? optionals.account.name : EOSIOAccount.name;
             let authorization = (optionals && optionals.authorization.actor && optionals.authorization.permission) ? optionals.authorization : EOSIOAccount.basePermissions.active;
 
             let data = buildDataObject(actionParams, structs[actionName].fields);

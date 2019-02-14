@@ -3,16 +3,21 @@ const infeos = require('infeos').init();
 const EOSIOApi = infeos.EOSIOApi;   
 const EOSIORpc = infeos.EOSIOApi.rpc;
 
-describe('Star Contract Tests', function () {
+describe('Planet Contract Tests', function () {
+    let eosioTest;
     let account;
     let universeContractInstance;
     let isContractDeployed;
 
     before(async () => {
-        let eosioTest = new infeos.EOSIOTest();
+        eosioTest = new infeos.EOSIOTest();
         account = eosioTest.deployerAccount;
 
-        if (!isContractDeployed) {
+        /**
+         * At the moment you can choose how & when the smart contract will be deployed.
+         * We advise you to deploy your contract in the deploy script and to get its instance in the test as the example below
+         */
+        if (false) {
             /**
              * Deploying the contract if not yet deployed
              */
@@ -28,42 +33,26 @@ describe('Star Contract Tests', function () {
         }
     });
 
-    it('should create a new star', async () => {
-        let starName = 'Sirius';
-        let starType = 'A';
+    it('should create a new planet', async () => {
+        let starName = 'Lacertra';
+        let starType = 'O';
         let color = 'blue';
-        let averageMass = 5;
-        let averageRadius = 2;
+        let averageMass = 60;
+        let averageRadius = 15;
 
         await universeContractInstance.createstar(starName, starType, color, averageMass, averageRadius);
         let starsTable = await EOSIORpc.get_table_rows({ code: account.name, scope: account.name, table: 'star'});
         let stars = starsTable['rows'];
+        let star = stars[stars.length - 1];
 
-        assert.strictEqual(stars[0].star_name, starName, `Invalid star name. [${starName}] was expected but [${stars[0].star_name}] was returned.`);
-        assert.strictEqual(stars[0].star_type, starType, `Invalid star type. [${starType}] was expected but [${stars[0].star_type}] was returned.`);
-        assert.strictEqual(stars[0].color, color, `Invalid color. [${color}] was expected but [${stars[0].color}] was returned.`);
-        assert.strictEqual(stars[0].average_mass, averageMass, `Invalid average mass. [${averageMass}] was expected but [${stars[0].average_mass}] was returned.`);
-        assert.strictEqual(stars[0].average_radius, averageRadius, `Invalid average radius. [${averageRadius}] was expected but [${stars[0].average_radius}] was returned.`);
+        let planetName = 'T10Z';
+
+        await universeContractInstance.createplanet(planetName, star.id);
+        let planetsTable = await EOSIORpc.get_table_rows({ code: account.name, scope: account.name, table: 'planet'});
+        let planets = planetsTable['rows'];
+        let planet = planets[planets.length - 1];
+
+        assert.strictEqual(planet.planet_name, planetName, `Invalid planet name. [${planetName}] was expected but [${planet.planet_name}] was returned.`);
+        assert.strictEqual(planet.star_id, star.id, `Invalid star id. [${star.id}] was expected but [${planet.star_id}] was returned.`);
     });
-
-    it('', async () => {
-
-    });
-    
-    it('', async () => {
-        
-    });
-
-    it('', async () => {
-        
-    });
-
-    it('', async () => {
-        
-    });
-
-    it('', async () => {
-        
-    });
-
 });

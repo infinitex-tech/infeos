@@ -2,8 +2,6 @@ var Mocha = require("mocha");
 var chai = require("chai");
 var originalRequire = require("original-require");
 
-// chai.use(require("./assertions"));
-
 const createMocha = (config, files) => {
 	var mocha = new Mocha(config);
 
@@ -33,7 +31,7 @@ const setJSTestGlobals = () => {
 }
 
 const run = async (files) => {
-	var mochaConfig = { 'useColors': true, 'timeout': 15000 };
+	var mochaConfig = { 'useColors': true, 'timeout': 20000 };
 	let mocha = createMocha(mochaConfig, files);
 
 	files.forEach(function (file) {

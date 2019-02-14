@@ -11,7 +11,7 @@ class EOSIOAccountManager {
     constructor() {
     }
 
-    async generateAccounts(accountsCount = 1) {
+    async generateAccounts(accountsCount = 1, createUsingEOSJS = false) {
         let EOSIONode = new EOSIONetwork(infeos_config.network.name.EOS);
 
         let accounts = [];
@@ -29,9 +29,16 @@ class EOSIOAccountManager {
             let activeKeys = {"PUBLIC_KEY": activePublicKey, "PRIVATE_KEY": activePrivateKey};
 
             let accountName = generateAccountName();
-            await EOSIONode.createAccount(accountName, ownerPublicKey, activePublicKey, 'yes');
 
-            let generatedAccount = new EOSIOAccount(accountName, ownerKeys, activeKeys);
+            let generatedAccount;
+
+            if (createUsingEOSJS) {
+                
+                await createAccount('infeos', [{ actor: 'infeos', permission: 'active' }], generatedAccount);
+            } else {
+                await EOSIONode.createAccount(accountName, ownerPublicKey, activePublicKey, 'yes');
+                generatedAccount = new EOSIOAccount(accountName, ownerKeys, activeKeys);
+            }
 
             accounts.push(generatedAccount);
         }

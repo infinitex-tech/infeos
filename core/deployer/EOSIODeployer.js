@@ -19,6 +19,17 @@ class EOSIODeployer {
     }    
 
     /**
+     * Compiles an EOSIO smart contract
+     * @returns { boolean } EOSIOContract instance of the deployed contract
+     */
+    async compile() {
+        let abi = new Abi(this.contractName);
+        let wasm = new Wasm(this.contractName);
+
+        compileContract.call(this, this.contractName, this.shouldGenerateAbi, abi, wasm);
+    }
+
+    /**
      * Deploying an EOSIO smart contract
      * @returns { EOSIOContract } EOSIOContract instance of the deployed contract
      */
@@ -26,8 +37,9 @@ class EOSIODeployer {
         let abi = new Abi(this.contractName);
         let wasm = new Wasm(this.contractName);
 
-        compileContract.call(this, this.contractName, this.shouldGenerateAbi, abi, wasm);
         let contract = await setContract.call(this, this.EOSIOAccount, this.contractName, abi, wasm);
+
+        logger.logSuccess('=== Successful deployment ===');
 
         return contract;
     }
@@ -45,8 +57,15 @@ let compileContract = (contractName, shouldGenerateAbi, abi, wasm) => {
     let pathToMasterContractFile = path.normalize(`src/${contractName}.cpp`);
     let dockerContainerName = 'dev_EOS_node';
 
-    let contractsFolderPathInContainer = path.normalize('/opt/eosio/bin/contracts');
-    let pathToAbiFileInContainer = path.join(contractsFolderPathInContainer, `/src/${contractName}.abi`);
+    let contractsFolderPathInContainer;
+
+    if (process.platform !== 'darwin') {
+        contractsFolderPathInContainer = '//opt/eosio/bin/contracts';
+    } else {
+        contractsFolderPathInContainer = '/opt/eosio/bin/contracts';
+    }
+
+    let pathToAbiFileInContainer = path.normalize(`${contractsFolderPathInContainer}/src/${contractName}.abi`);
 
     let generateWasmScript = path.join(__dirname, '/./../scripts/contract/compile_contract.sh'); // use path.join()
 

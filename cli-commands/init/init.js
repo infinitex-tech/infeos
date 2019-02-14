@@ -1,5 +1,7 @@
 const fs = require('fs');
 const path = require('path');
+const util = require('util');
+const exec = util.promisify(require('child_process').exec);
 const logger = require('./../../utils/logger/logger').logger;
 
 const contractsDirectory = path.normalize('./contracts');
@@ -20,8 +22,10 @@ const typesContractHeaderDestination = path.join(includeSubfolderDirectory, '/ty
 /**
  * Ricardian Contracts
  */
-const starRicardianContractDestination = path.join(ricardianContractsDirectory, '/universe.star_rc.md');
-const planetRicardianContractDestination = path.join(ricardianContractsDirectory, '/universe.planet_rc.md');
+const universeRicardianContractDestination = path.join(ricardianContractsDirectory, '/universe.star_rc.md');
+const addPlanetActionRicardianContractDestination = path.join(ricardianContractsDirectory, '/universe.addplanet_rc.md');
+const createPlanetActionRicardianContractDestination = path.join(ricardianContractsDirectory, '/universe.createplanet_rc.md');
+const createStarActionRicardianContractDestination = path.join(ricardianContractsDirectory, '/universe.createstar_rc.md');
 
 /**
  * EOS Smart Contracts
@@ -45,6 +49,9 @@ const deployFileDestination = path.join(deploymentDirectory, '/deploy.js');
 
 const planetTestFileDestination = path.join(testsDirectory, '/PlanetTests.js');
 const starTestFileDestination = path.join(testsDirectory, '/StarTests.js');
+
+const gitIgnoreFileDestination = path.normalize('./.gitignore');
+const packageJsonDestination = path.normalize('./package.json');
 
 
 const createContractsFolder = () => {
@@ -147,12 +154,20 @@ const copyTemplateFiles = (libraryDirectory) => {
 		throw new Error(`types.cpp already exists in ${includeSubfolderDirectory} directory. You've probably already initialized infeos for this project.`);
 	}
 
-	if (fs.existsSync(starRicardianContractDestination)) {
-		throw new Error(`universe.star_rc.md already exists in ${ricardianContractsDirectory} directory. You've probably already initialized infeos for this project.`);
+	if (fs.existsSync(universeRicardianContractDestination)) {
+		throw new Error(`universe_rc.md already exists in ${universeRicardianContractDestination} directory. You've probably already initialized infeos for this project.`);
 	}
 
-	if (fs.existsSync(planetRicardianContractDestination)) {
-		throw new Error(`universe.planet_rc.md already exists in ${ricardianContractsDirectory} directory. You've probably already initialized infeos for this project.`);
+	if (fs.existsSync(addPlanetActionRicardianContractDestination)) {
+		throw new Error(`universe.addplanet_rc.md already exists in ${addPlanetActionRicardianContractDestination} directory. You've probably already initialized infeos for this project.`);
+	}
+
+	if (fs.existsSync(createPlanetActionRicardianContractDestination)) {
+		throw new Error(`universe.createplanet_rc.md already exists in ${createPlanetActionRicardianContractDestination} directory. You've probably already initialized infeos for this project.`);
+	}
+
+	if (fs.existsSync(createStarActionRicardianContractDestination)) {
+		throw new Error(`universe.createstar_rc.md already exists in ${createStarActionRicardianContractDestination} directory. You've probably already initialized infeos for this project.`);
 	}
 
 	const smartContractHeaderFileSource = path.join(libraryDirectory, '/smart_contracts/universe.hpp');
@@ -160,16 +175,22 @@ const copyTemplateFiles = (libraryDirectory) => {
 	const subSmartContractPlanetImplementationFileSource = path.join(libraryDirectory, '/smart_contracts/universe.planet.cpp');
 	const subSmartContractStarImplementationFileSource = path.join(libraryDirectory, '/smart_contracts/universe.star.cpp');
 	const typesContractHeaderFileSource = path.join(libraryDirectory, '/smart_contracts/types.hpp');
-	const starRicardianContractFileSource = path.join(libraryDirectory, '/ricardian_contracts/universe.star_rc.md');
-	const planetRicardianContractFileSource = path.join(libraryDirectory, '/ricardian_contracts/universe.planet_rc.md');
+
+	const universeRicardianContractFileSource = path.join(libraryDirectory, '/ricardian_contracts/universe_rc.md');
+	const addPlanetRicardianContractFileSource = path.join(libraryDirectory, '/ricardian_contracts/universe.addplanet_rc.md');
+	const createPlanetRicardianContractFileSource = path.join(libraryDirectory, '/ricardian_contracts/universe.createplanet_rc.md');
+	const createStarRicardianContractFileSource = path.join(libraryDirectory, '/ricardian_contracts/universe.createstar_rc.md');
 
 	fs.copyFileSync(smartContractHeaderFileSource, smartContractHeaderDestination);
 	fs.copyFileSync(smartContractImplementationFileSource, smartContractImplementationDestination);
 	fs.copyFileSync(subSmartContractPlanetImplementationFileSource, subSmartContractPlanetImplementationDestination);
 	fs.copyFileSync(subSmartContractStarImplementationFileSource, subSmartContractStarImplementationDestination);
 	fs.copyFileSync(typesContractHeaderFileSource, typesContractHeaderDestination);
-	fs.copyFileSync(starRicardianContractFileSource, starRicardianContractDestination);
-	fs.copyFileSync(planetRicardianContractFileSource, planetRicardianContractDestination);
+
+	fs.copyFileSync(universeRicardianContractFileSource, universeRicardianContractDestination);
+	fs.copyFileSync(addPlanetRicardianContractFileSource, addPlanetActionRicardianContractDestination);
+	fs.copyFileSync(createPlanetRicardianContractFileSource, createPlanetActionRicardianContractDestination);
+	fs.copyFileSync(createStarRicardianContractFileSource, createStarActionRicardianContractDestination);
 
 	/**
 	 * Tests files
@@ -190,6 +211,26 @@ const copyTemplateFiles = (libraryDirectory) => {
 	fs.copyFileSync(starTestsFileSource, starTestFileDestination);
 };
 
+const createGitIgnoreFile = (libraryDirectory) => {
+	console.log('gitIgnoreFileDestination = ',gitIgnoreFileDestination);
+	if (fs.existsSync(gitIgnoreFileDestination)) {
+		return;
+	}
+
+	let gitIgnoreFileSource = path.normalize(`${libraryDirectory}/git_ignore.js`);
+	fs.copyFileSync(gitIgnoreFileSource, gitIgnoreFileDestination)
+}
+
+const copyPackageJsonFile = (libraryDirectory) => {
+	if (fs.existsSync(packageJsonDestination)) {
+		return;
+	}
+
+	const packageJsonFileSource = path.normalize(`${libraryDirectory}/package.json`);
+
+	fs.copyFileSync(packageJsonFileSource, packageJsonDestination);
+};
+
 const run = async () => {
 	const templateFilesDirectory = path.join(__dirname, '/templates');
 	const resourceFilesDirectory = path.join(__dirname, '/resources');
@@ -206,6 +247,9 @@ const run = async () => {
 		
 		copyResourceFiles(resourceFilesDirectory);
 		copyTemplateFiles(templateFilesDirectory);
+		createGitIgnoreFile(resourceFilesDirectory);
+		copyPackageJsonFile(resourceFilesDirectory);
+		// const { stdout, stderr } = await exec('npm install etherlime');
 
 		logger.logSuccess('=== WooHoo, you\'re ready! Now the EOSIO universe is in your hands! ===\n');
 
