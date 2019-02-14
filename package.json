@@ -6,6 +6,10 @@
   "scripts": {
     "test": "echo \"Error: no test specified\""
   },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/infiniteXLabs/infeos"
+  },
   "author": "https://infinitexlabs.com",
   "license": "ISC",
   "keywords": ["eosio", "eos", "telos", "worbli", "bos", "blockchain", "infeos", "infinite x labs", "eos bulgaria"],
