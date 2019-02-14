@@ -85,7 +85,7 @@ infeos deploy
 
 # Test
 
-Running the test command will execute all test located in the **test*** folder. You have the option to pass a specific test file to be executed
+Running the test command will execute all test located in the **test** folder. You have the option to pass a specific test file to be executed
 
 ```
 infeos test [path]
