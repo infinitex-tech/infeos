@@ -1,7 +1,7 @@
 const { Api, JsonRpc, RpcError, Serialize } = require('eosjs');
 const { TextEncoder, TextDecoder } = require('util');
 
-const JsSignatureProvider = require('eosjs/dist/eosjs-jssig').default; 
+const JsSignatureProvider = require('eosjs/dist/eosjs-jssig').JsSignatureProvider; 
 const fetch = require('node-fetch').default;
 
 const Validator = require('./../validators/validator');

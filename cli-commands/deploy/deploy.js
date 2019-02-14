@@ -2,7 +2,6 @@ const fs = require('fs');
 const path = require('path');
 const logger = require('./../../utils/logger/logger').logger;
 
-const buildDirectory = path.normalize('./build');
 const deployerFilePath = path.normalize('deployment/deploy.js');
 
 const createBuildFolder = () => {
@@ -23,7 +22,6 @@ const deploySmartContract = () => {
 const run = async () => {
 
 	try {
-		createBuildFolder();
 		deploySmartContract();
 	} catch (error) {
 		throw new Error(error.message);

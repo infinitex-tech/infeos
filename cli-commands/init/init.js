@@ -212,7 +212,6 @@ const copyTemplateFiles = (libraryDirectory) => {
 };
 
 const createGitIgnoreFile = (libraryDirectory) => {
-	console.log('gitIgnoreFileDestination = ',gitIgnoreFileDestination);
 	if (fs.existsSync(gitIgnoreFileDestination)) {
 		return;
 	}

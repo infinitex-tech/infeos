@@ -4,11 +4,19 @@ const path = require('path');
 const infeos = require('infeos').init();
 const infeosConfigFilePath = path.normalize('config/infeos_config.json');
 
+const buildDirectory = path.normalize('./build');
+
 const compile = (abi) => {
     let contractName = getMasterContractName();
 
     let contractDeployer = new infeos.EOSIODeployer(contractName, null, abi);
     contractDeployer.compile();
+}
+
+const createBuildFolder = () => {
+	if (!fs.existsSync(buildDirectory)) {
+		fs.mkdirSync(buildDirectory);
+	}
 }
 
 const getMasterContractName = () => {
@@ -30,6 +38,7 @@ const copyInfeosConfigFile = () => {
 const run = async (abi) => {
 
 	try {
+        createBuildFolder();
 		compile(abi);
 	} catch (error) {
 		throw new Error(error.message);

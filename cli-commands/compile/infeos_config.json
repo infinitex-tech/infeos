@@ -1,0 +1,49 @@
+{
+    "network": {
+        "name": {
+            "EOS": "EOS",
+            "Telos": "Telos",
+            "Worbli": "Worbli",
+            "BOS": "BOS"
+        },
+        "type": {
+            "local": "local",
+            "testnet": "testnet",
+            "mainnet": "mainnet"
+        },
+        "nodeosPort": 8888,
+        "nodeosTestPort": 7777,
+        "keosdPort": 4949
+    },
+    "docker": {
+        "EOS": {
+            "containerName": "dev_EOS_node",
+            "testContainerName": "test_EOS_node",
+            "containerImageName": "infinitexlabs/eos-dev-infeos:latest"
+        },
+        "nodeosEnvironment": {
+            "main": "main",
+            "test": "test"
+        }
+    },
+    "wallet": "infeos",
+    "account": {
+        "name": "infeos",
+        "permissions": {
+            "owner": {
+                "publicKey": "EOS69i58UJci6CQQ1JTAxXUcSFHhKDwMV8CaK3ieCJJsWrQjL3v5H",
+                "privateKey": "5KVRsQ3ob22TDsC13emvjD3Sghy6vPramVKtCYoY4cK3nHRDp9m"
+            },
+            "active": {
+                "publicKey": "EOS5fRobovJ2t5KST65k6QCEHF7D6Ja67tEpoSjYEpb9kCsGbTazx",
+                "privateKey": "5JM61kNg2R6GGkm68cTHYhaG22za7Jy7EBRANGVD1HXkxA16co3"
+            },
+            "system": {
+                "publicKey": "EOS6MRyAjQq8ud7hVNYcfnVPJqcVpscN5So8BhtHuGYqET5GDW5CV",
+                "privateKey": "5KQwrPbwdL6PhXujxW37FSSQZ1JiwsST4cqQzDeyXtP79zkvFD3"
+            }
+        }
+    },
+    "masterContract": "universe"
+
+}
