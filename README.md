@@ -19,6 +19,10 @@ infeos is an EOSIO development, building, testing, and deployment framework base
 
 Find us on: [**Telegram**](https://t.me/infeos) | [**Twitter**](https://twitter.com/infeos_io)
 
+### The universe message dashborard
+---
+- Full Documentation - **In Progress** (Check out the example template for details)
+---
 
 # Pre-instalation
 *If you already have these programs on your computer please continue with the actual installation*
