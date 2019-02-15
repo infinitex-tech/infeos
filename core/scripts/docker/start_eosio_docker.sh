@@ -34,13 +34,19 @@ fi
 
 if [ ${NODEOS_ENVIRONMENT} != "test" ]
 then
-    script="sh ./node/init_node.sh"
 
     docker run --name ${CONTAINER_NAME} -d \
     -p ${NODEOS_PORT}:${NODEOS_PORT} -p 4949:4949 \
-    --mount type=bind,src="$(pwd)"/node,dst=/opt/eosio/bin/node \
-    --mount type=bind,src="$(pwd)"/config,dst=/opt/eosio/bin/config \
-    -w "/opt/eosio/bin/" ${IMAGE_NAME} /bin/bash -c "$script"
+    -w "/opt/eosio/bin/" ${IMAGE_NAME} /bin/bash -c "keosd --http-server-address=0.0.0.0:4949 & nodeos -e -p eosio -d /mnt/dev/data \
+  --config-dir /mnt/dev/config \
+  --http-validate-host=false \
+  --plugin eosio::producer_plugin \
+  --plugin eosio::chain_api_plugin \
+  --plugin eosio::http_plugin \
+  --http-server-address=0.0.0.0:8888 \
+  --access-control-allow-origin=* \
+  --contracts-console \
+  --verbose-http-errors "
 
     
     

@@ -39,8 +39,6 @@ docker stop ${CONTAINER_NAME} 2>/dev/null || true && docker rm --force ${CONTAIN
     echo "=== DOCKER: CONTAINER ID ==="
     docker run --name ${CONTAINER_NAME} -d \
     -p 8888:8888 -p 4949:4949 \
-    --mount type=bind,src="$(pwd)"/node,dst=/opt/eosio/bin/node \
-    --mount type=bind,src="$(pwd)"/config,dst=/opt/eosio/bin/config \
     --workdir //opt/eosio/bin/ ${IMAGE_NAME} //bin/bash -c "keosd --http-server-address=0.0.0.0:4949 & nodeos -e -p eosio -d /mnt/dev/data \
   --config-dir /mnt/dev/config \
   --http-validate-host=false \
