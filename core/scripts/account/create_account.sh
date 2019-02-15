@@ -33,7 +33,7 @@ if [ "$IS_DARWIN" = true ] && [ $IS_SILENT != "yes" ] ; then
   echo "${GREEN}=== EOSIO OUTPUT ===${NO_COLOR}"
 fi
 
-if [ "$IS_DARWIN" = false ] && [ $IS_SILENT != "yes"] ; then
+if [ "$IS_DARWIN" = false ] && [ $IS_SILENT != "yes" ] ; then
   echo ""
   echo "Creating deployer account: ${DEFAULT_ACCOUNT_NAME}"
   echo "=== EOSIO OUTPUT ==="
