@@ -74,6 +74,7 @@ To compile your smart contract and to generate WASM & ABI files the following co
 infeos compile [abi]
 ```
 
+If you're deploying the example smart contract (universe.cpp) you can use the created abi for it from [here](https://gist.github.com/DimitarSD/9b3af2a3312b78fe4c0826018e7346ce)
 
 # Deploy
 
