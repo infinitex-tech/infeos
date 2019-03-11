@@ -1,1 +1,1 @@
-The 'tests' folder contains all test for the infeos framework
+infeos unit tests
