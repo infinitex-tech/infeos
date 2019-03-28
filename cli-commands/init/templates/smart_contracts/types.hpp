@@ -11,7 +11,7 @@ using std::vector;
 
 namespace types
 {
-    struct [[eosio::table]] star 
+    struct [[eosio::table("star"), eosio::contract("universe")]] star 
     {
         uint64_t id;
         string name;
@@ -27,7 +27,7 @@ namespace types
     typedef multi_index<"star"_n, star> star_index;
 
 
-    struct [[eosio::table]] planet
+    struct [[eosio::table("planet"), eosio::contract("universe")]] planet
     {
         uint64_t id;
         string name;
