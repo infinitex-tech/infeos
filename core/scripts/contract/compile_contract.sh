@@ -39,7 +39,7 @@ if [ "$SHOULD_GENERATE_ABI" = true ] ; then
 
     echo ""
     echo "Generating WASM & ABI for ==${MASTER_CONTRACT_NAME}== smart contract"
-    docker exec $CONTAINER_NAME eosio-cpp -I ./contracts/include -o $CONTRACTS_FOLDER_PATH_IN_CONTAINER/$PATH_TO_WASM_FILE $CONTRACTS_FOLDER_PATH_IN_CONTAINER/$PATH_TO_MASTER_CONTRACT --abigen
+    docker exec $CONTAINER_NAME eosio-cpp -I ./contracts/include -o $CONTRACTS_FOLDER_PATH_IN_CONTAINER/$PATH_TO_WASM_FILE $CONTRACTS_FOLDER_PATH_IN_CONTAINER/$PATH_TO_MASTER_CONTRACT --abigen --contract ${MASTER_CONTRACT_NAME}
 
     # Copy the generated WASM & ABI files back to the project build folder
     docker cp $CONTAINER_NAME:$CONTRACTS_FOLDER_PATH_IN_CONTAINER/$PATH_TO_WASM_FILE $PATH_TO_WASM_FILE_IN_HOST
