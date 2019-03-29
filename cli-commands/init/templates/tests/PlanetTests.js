@@ -52,7 +52,7 @@ describe('Planet Contract Tests', function () {
         let planets = planetsTable['rows'];
         let planet = planets[planets.length - 1];
 
-        assert.strictEqual(planet.planet_name, planetName, `Invalid planet name. [${planetName}] was expected but [${planet.planet_name}] was returned.`);
+        assert.strictEqual(planet.name, planetName, `Invalid planet name. [${planetName}] was expected but [${planet.name}] was returned.`);
         assert.strictEqual(planet.star_id, star.id, `Invalid star id. [${star.id}] was expected but [${planet.star_id}] was returned.`);
     });
 });
