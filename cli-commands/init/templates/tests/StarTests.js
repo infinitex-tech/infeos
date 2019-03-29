@@ -45,8 +45,8 @@ describe('Star Contract Tests', function () {
         let stars = starsTable['rows'];
         let star = stars[stars.length - 1];
 
-        assert.strictEqual(star.star_name, starName, `Invalid star name. [${starName}] was expected but [${star.star_name}] was returned.`);
-        assert.strictEqual(star.star_type, starType, `Invalid star type. [${starType}] was expected but [${star.star_type}] was returned.`);
+        assert.strictEqual(star.name, starName, `Invalid star name. [${starName}] was expected but [${star.name}] was returned.`);
+        assert.strictEqual(star.type, starType, `Invalid star type. [${starType}] was expected but [${star.type}] was returned.`);
         assert.strictEqual(star.color, color, `Invalid color. [${color}] was expected but [${star.color}] was returned.`);
         assert.strictEqual(star.average_mass, averageMass, `Invalid average mass. [${averageMass}] was expected but [${star.average_mass}] was returned.`);
         assert.strictEqual(star.average_radius, averageRadius, `Invalid average radius. [${averageRadius}] was expected but [${star.average_radius}] was returned.`);
