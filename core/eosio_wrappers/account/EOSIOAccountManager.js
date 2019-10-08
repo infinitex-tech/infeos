@@ -25,8 +25,8 @@ class EOSIOAccountManager {
             let activePublicKey = PrivateKey.fromString(activePrivateKey).toPublic().toString();
             await EOSIONode.importKey(infeos_config.wallet, activePrivateKey, 'yes');
             
-            let ownerKeys = {"PUBLIC_KEY": ownerPublicKey, "PRIVATE_KEY": ownerPrivateKey};
-            let activeKeys = {"PUBLIC_KEY": activePublicKey, "PRIVATE_KEY": activePrivateKey};
+            let ownerKeys = {publicKey: ownerPublicKey, privateKey: ownerPrivateKey};
+            let activeKeys = {publicKey: activePublicKey, privateKey: activePrivateKey};
 
             let accountName = generateAccountName();
 
